@@ -1,0 +1,797 @@
+db.createUser(
+{
+user:'adminUser',
+pwd:'admin123',
+roles: [
+  { role:'userAdminAnyDatabase',db:'admin' },
+  { role:'dbAdminAnyDatabase',db:'admin'},
+  { role:'readWriteAnyDatabase',db:'admin'}
+  ],
+  clusterAdmin
+})
+
+
+db.createUser(
+{
+user:'readerOnly',
+pwd:'read',
+roles: [
+  { role:'read',db:'school' },
+  { role:'read',db:'library' },
+  ]
+})
+
+db.createUser(
+{
+user:'collegeAdmin',
+pwd:'read',
+roles: [
+  { role:'dbAdmin',db:'college' },
+  
+  ]
+})
+
+db.createUser(
+{
+user:'dualAccessUser',
+pwd:'read',
+roles: [
+  { role:'read',db:'college' },
+  { role:'readWrite',db:'college' },
+  
+  ]
+})
+
+db.createRole(
+{
+role:'readStudentsOnly',
+
+privileges: [
+    { resource:{db:"school",collection:"Student"},
+    actions:['find']
+     }],
+  roles: [ ]
+ 
+})
+// At Home 
+admin> use college
+switched to db college
+college> db.createUser({
+...   user: "collegeAdmin",
+...   pwd: "read",
+...   roles: [
+...     { role: "userAdmin", db: "college" },
+...     { role: "dbAdmin", db: "college" }
+...   ]
+... });
+{ ok: 1 }
+college> use admin
+switched to db admin
+admin> db.createUser({
+...   user: "dualAccessUser",
+...   pwd: "read",
+...   roles: [
+...     { role: "read", db: "school" },
+...     { role: "readWrite", db: "college" }
+...   ]
+... });
+{ ok: 1 }
+admin> use school
+switched to db school
+school> db.createRole({
+...   role: "readStudentsOnly",
+...   privileges: [
+...     {
+...       resource: { db: "school", collection: "Student" },
+...       actions: ["find"]
+...     }
+...   ],
+...   roles: []
+... });
+{ ok: 1 }
+school> db.createUser({
+...   user: "limitedUser",
+...   pwd: "pass123",
+...   roles: [{ role: "readStudentsOnly", db: "school" }]
+... });
+...
+{ ok: 1 }
+school> use finance
+switched to db finance
+finance> db.createUser({
+...   user: "ipRestrictedUser",
+...   pwd: "finance123",
+...   roles: [{ role: "readWrite", db: "finance" }],
+...   authenticationRestrictions: [
+...     { clientSource: ["192.168.1.50"], serverAddress: [] }
+...   ]
+... });
+{ ok: 1 }
+finance> use testDB
+switched to db testDB
+testDB> db.createUser({
+...   user: "tempUser",
+...   pwd: "temp123",
+...   roles: [{ role: "readWrite", db: "testDB" }]
+... });
+{ ok: 1 }
+testDB> db.updateUser("tempUser", {
+...   roles: [{ role: "read", db: "testDB" }]
+... });
+{ ok: 1 }
+testDB> use traning
+switched to db traning
+traning> use training
+switched to db training
+training> db.createUser({
+...   user: "deleteMe",
+...   pwd: "delete123",
+...   roles: [{ role: "readWrite", db: "training" }]
+... });
+... db.dropUser("deleteMe");
+{ ok: 1 }
+training> use admin
+switched to db admin
+admin> db.getUsers({ showCredentials: false });
+{
+  users: [
+    {
+      _id: 'admin.adminUser',
+      userId: UUID('fb096bd4-cdf0-4f8b-95c7-780a3c7ace89'),
+      user: 'adminUser',
+      db: 'admin',
+      roles: [
+        { role: 'userAdminAnyDatabase', db: 'admin' },
+        { role: 'dbAdminAnyDatabase', db: 'admin' },
+        { role: 'readWriteAnyDatabase', db: 'admin' }
+      ],
+      mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+    },
+    {
+      _id: 'admin.dualAccessUser',
+      userId: UUID('22d3ad99-9655-4d68-b7b9-ee8bdb205a90'),
+      user: 'dualAccessUser',
+      db: 'admin',
+      roles: [
+        { role: 'readWrite', db: 'college' },
+        { role: 'read', db: 'school' }
+      ],
+      mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+    },
+    {
+      _id: 'admin.readerOnly',
+      userId: UUID('7e6331be-06c8-45a3-aa36-56cfd0426221'),
+      user: 'readerOnly',
+      db: 'admin',
+      roles: [
+        { role: 'read', db: 'school' },
+        { role: 'read', db: 'library' }
+      ],
+      mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+    }
+  ],
+  ok: 1
+}
+admin> use school
+switched to db school
+school> db.getRoles({ showPrivileges: true, showBuiltinRoles: true });
+{
+  roles: [
+    {
+      role: 'readWrite',
+      db: 'school',
+      isBuiltin: true,
+      roles: [],
+      inheritedRoles: [],
+      privileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collStats',
+            'compactStructuredEncryptionData',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropIndex',
+            'dropSearchIndex',
+            'find',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheRead',
+            'remove',
+            'renameCollectionSameDB',
+            'update'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.js' },
+          actions: [
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collStats',
+            'compactStructuredEncryptionData',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropIndex',
+            'dropSearchIndex',
+            'find',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheRead',
+            'remove',
+            'renameCollectionSameDB',
+            'update'
+          ]
+        }
+      ],
+      inheritedPrivileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collStats',
+            'compactStructuredEncryptionData',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropIndex',
+            'dropSearchIndex',
+            'find',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheRead',
+            'remove',
+            'renameCollectionSameDB',
+            'update'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.js' },
+          actions: [
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collStats',
+            'compactStructuredEncryptionData',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropIndex',
+            'dropSearchIndex',
+            'find',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheRead',
+            'remove',
+            'renameCollectionSameDB',
+            'update'
+          ]
+        }
+      ]
+    },
+    {
+      role: 'dbOwner',
+      db: 'school',
+      isBuiltin: true,
+      roles: [],
+      inheritedRoles: [],
+      privileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'analyze',
+            'bypassDocumentValidation',
+            'changeCustomData',
+            'changePassword',
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collMod',
+            'collStats',
+            'compact',
+            'compactStructuredEncryptionData',
+            'configureQueryAnalyzer',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createRole',
+            'createSearchIndexes',
+            'createUser',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropDatabase',
+            'dropIndex',
+            'dropRole',
+            'dropSearchIndex',
+            'dropUser',
+            'enableProfiler',
+            'find',
+            'grantRole',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheIndexFilter',
+            'planCacheRead',
+            'planCacheWrite',
+            'reIndex',
+            'remove',
+            'renameCollectionSameDB',
+            'revokeRole',
+            'setAuthenticationRestriction',
+            'storageDetails',
+            'update',
+            'validate',
+            'viewRole',
+            'viewUser'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.js' },
+          actions: [
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collStats',
+            'compactStructuredEncryptionData',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropIndex',
+            'dropSearchIndex',
+            'find',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheRead',
+            'remove',
+            'renameCollectionSameDB',
+            'update'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.profile' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'convertToCapped',
+            'createCollection',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        }
+      ],
+      inheritedPrivileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'analyze',
+            'bypassDocumentValidation',
+            'changeCustomData',
+            'changePassword',
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collMod',
+            'collStats',
+            'compact',
+            'compactStructuredEncryptionData',
+            'configureQueryAnalyzer',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createRole',
+            'createSearchIndexes',
+            'createUser',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropDatabase',
+            'dropIndex',
+            'dropRole',
+            'dropSearchIndex',
+            'dropUser',
+            'enableProfiler',
+            'find',
+            'grantRole',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheIndexFilter',
+            'planCacheRead',
+            'planCacheWrite',
+            'reIndex',
+            'remove',
+            'renameCollectionSameDB',
+            'revokeRole',
+            'setAuthenticationRestriction',
+            'storageDetails',
+            'update',
+            'validate',
+            'viewRole',
+            'viewUser'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.js' },
+          actions: [
+            'changeStream',
+            'cleanupStructuredEncryptionData',
+            'collStats',
+            'compactStructuredEncryptionData',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'dropIndex',
+            'dropSearchIndex',
+            'find',
+            'insert',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheRead',
+            'remove',
+            'renameCollectionSameDB',
+            'update'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.profile' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'convertToCapped',
+            'createCollection',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        }
+      ]
+    },
+    {
+      role: 'enableSharding',
+      db: 'school',
+      isBuiltin: true,
+      roles: [],
+      inheritedRoles: [],
+      privileges: [
+        {
+          resource: { db: '', collection: '' },
+          actions: [
+            'analyzeShardKey',
+            'enableSharding',
+            'moveCollection',
+            'refineCollectionShardKey',
+            'reshardCollection',
+            'unshardCollection'
+          ]
+        }
+      ],
+      inheritedPrivileges: [
+        {
+          resource: { db: '', collection: '' },
+          actions: [
+            'analyzeShardKey',
+            'enableSharding',
+            'moveCollection',
+            'refineCollectionShardKey',
+            'reshardCollection',
+            'unshardCollection'
+          ]
+        }
+      ]
+    },
+    {
+      role: 'dbAdmin',
+      db: 'school',
+      isBuiltin: true,
+      roles: [],
+      inheritedRoles: [],
+      privileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'analyze',
+            'bypassDocumentValidation',
+            'collMod',
+            'collStats',
+            'compact',
+            'configureQueryAnalyzer',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbStats',
+            'dropCollection',
+            'dropDatabase',
+            'dropIndex',
+            'dropSearchIndex',
+            'enableProfiler',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheIndexFilter',
+            'planCacheRead',
+            'planCacheWrite',
+            'reIndex',
+            'renameCollectionSameDB',
+            'storageDetails',
+            'validate'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.profile' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'convertToCapped',
+            'createCollection',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        }
+      ],
+      inheritedPrivileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'analyze',
+            'bypassDocumentValidation',
+            'collMod',
+            'collStats',
+            'compact',
+            'configureQueryAnalyzer',
+            'convertToCapped',
+            'createCollection',
+            'createIndex',
+            'createSearchIndexes',
+            'dbStats',
+            'dropCollection',
+            'dropDatabase',
+            'dropIndex',
+            'dropSearchIndex',
+            'enableProfiler',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'updateSearchIndex',
+            'planCacheIndexFilter',
+            'planCacheRead',
+            'planCacheWrite',
+            'reIndex',
+            'renameCollectionSameDB',
+            'storageDetails',
+            'validate'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.profile' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'convertToCapped',
+            'createCollection',
+            'dbHash',
+            'dbStats',
+            'dropCollection',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        }
+      ]
+    },
+    {
+      role: 'read',
+      db: 'school',
+      isBuiltin: true,
+      roles: [],
+      inheritedRoles: [],
+      privileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'dbHash',
+            'dbStats',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.js' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'dbHash',
+            'dbStats',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        }
+      ],
+      inheritedPrivileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'dbHash',
+            'dbStats',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        },
+        {
+          resource: { db: 'school', collection: 'system.js' },
+          actions: [
+            'changeStream',
+            'collStats',
+            'dbHash',
+            'dbStats',
+            'find',
+            'killCursors',
+            'listCollections',
+            'listIndexes',
+            'listSearchIndexes',
+            'planCacheRead'
+          ]
+        }
+      ]
+    },
+    {
+      role: 'userAdmin',
+      db: 'school',
+      isBuiltin: true,
+      roles: [],
+      inheritedRoles: [],
+      privileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'changeCustomData',
+            'changePassword',
+            'createRole',
+            'createUser',
+            'dropRole',
+            'dropUser',
+            'grantRole',
+            'revokeRole',
+            'setAuthenticationRestriction',
+            'viewRole',
+            'viewUser'
+          ]
+        }
+      ],
+      inheritedPrivileges: [
+        {
+          resource: { db: 'school', collection: '' },
+          actions: [
+            'changeCustomData',
+            'changePassword',
+            'createRole',
+            'createUser',
+            'dropRole',
+            'dropUser',
+            'grantRole',
+            'revokeRole',
+            'setAuthenticationRestriction',
+            'viewRole',
+            'viewUser'
+          ]
+        }
+      ]
+    },
+    {
+      _id: 'school.readStudentsOnly',
+      role: 'readStudentsOnly',
+      db: 'school',
+      privileges: [
+        {
+          resource: { db: 'school', collection: 'Student' },
+          actions: [ 'find' ]
+        }
+      ],
+      roles: [],
+      isBuiltin: false,
+      inheritedRoles: [],
+      inheritedPrivileges: [
+        {
+          resource: { db: 'school', collection: 'Student' },
+          actions: [ 'find' ]
+        }
+      ]
+    }
+  ],
+  ok: 1
+}
+school>

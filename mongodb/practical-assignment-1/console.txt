@@ -1,0 +1,488 @@
+test> use Company_2573007
+switched to db Company_2573007
+Company_2573007> db.createCollection('Employee')
+{ ok: 1 }
+Company_2573007> db.Employee.insertOne({EmployeeId:'EMP001',FirstName:'sandip',LastName:'kalsait',Email:'sandip.kalsait@test.in',PhoneNumber:'9158713568',Address:{HouseNo:'H202',Street:'Jagtap Dairy',City:'Pune',Country:'India',PinCode:'411011'},Salary:'35000',Designation:'System Engineer',Skills:['Java','MEAN','MERN','Next JS','Spring boot','C\C++'],Experience:4,ProjectName:'SPE',ProjectExperience:3,DateOfJoining:ISO('01/06/2021'),BirthDate:ISO('10/02/2000')})
+ReferenceError: ISO is not defined
+Company_2573007> db.Employee.insertOne({EmployeeId:'EMP001',FirstName:'sandip',LastName:'kalsait',Email:'sandip.kalsait@test.in',PhoneNumber:'9158713568',Address:{HouseNo:'H202',Street:'Jagtap Dairy',City:'Pune',Country:'India',PinCode:'411011'},Salary:'35000',Designation:'System Engineer',Skills:['Java','MEAN','MERN','Next JS','Spring boot','C\C++'],Experience:4,ProjectName:'SPE',ProjectExperience:3,DateOfJoining:new Date('01/06/2021'),BirthDate:new Date('10/02/2000')})
+{
+  acknowledged: true,
+  insertedId: ObjectId('689f6eec73204d583eeec4a9')
+}
+Company_2573007> db.Employee.find()
+[
+  {
+    _id: ObjectId('689f6eec73204d583eeec4a9'),
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: '35000',
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'CC++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-01-05T18:30:00.000Z'),
+    BirthDate: ISODate('2000-10-01T18:30:00.000Z')
+  }
+]
+Company_2573007> db.createCollection('Transaction')
+{ ok: 1 }
+Company_2573007> db.Transaction.insertOne({TransactionId:'TR_001',TransactionDate:new Date(),Name:'sandip',TransactionDetails:{ItemId:'I001',ItemName:'Laptop',Quantity:2,Price:250000},Payment:{Type:'Credit',TotalAmount:'250000',PaymentSuccessful:true},remark:''})
+{
+  acknowledged: true,
+  insertedId: ObjectId('689f706473204d583eeec4aa')
+}
+Company_2573007> db.Transaction.find()
+[
+  {
+    _id: ObjectId('689f706473204d583eeec4aa'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T17:37:40.564Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: '250000', PaymentSuccessful: true },
+    remark: ''
+  }
+]
+Company_2573007> function addEmployee(
+...     empId, firstName, lastName, email, phone,
+...     houseNo, street, city, country, pinCode,
+...     salary, designation, skillsArray, experience,
+...     projectName, projectExperience, joiningDate, birthDate
+... ) {
+...     db.Employee.insertOne({
+...         EmployeeId: empId,
+...         FirstName: firstName,
+...         LastName: lastName,
+...         Email: email,
+...         PhoneNumber: phone,
+...         Address: { HouseNo: houseNo, Street: street, City: city, Country: country, PinCode: pinCode },
+...         Salary: salary,
+...         Designation: designation,
+...         Skills: skillsArray,
+...         Experience: experience,
+...         ProjectName: projectName,
+...         ProjectExperience: projectExperience,
+...         DateOfJoining: new Date(joiningDate),
+...         BirthDate: new Date(birthDate)
+...     });
+... }
+...
+[Function: addEmployee]
+Company_2573007> function addTransaction(
+...     txnId, txnDate, empFirstName,
+...     itemId, itemName, quantity, price,
+...     paymentType, totalAmount, paymentSuccess, remarkText
+... ) {
+...     db.Transaction.insertOne({
+...         TransactionId: txnId,
+...         TransactionDate: new Date(txnDate),
+...         Name: empFirstName,
+...         TransactionDetails: { ItemId: itemId, ItemName: itemName, Quantity: quantity, Price: price },
+...         Payment: { Type: paymentType, TotalAmount: totalAmount, PaymentSuccessful: paymentSuccess },
+...         remark: remarkText || ''
+...     });
+... }
+[Function: addTransaction]
+Company_2573007> addEmployee('EMP001','Sandip','Kalsait','sandip.kalsait@test.in','9158713568','H202','Jagtap Dairy','Pune','India','411011',35000,'System Engineer',['Java','MEAN','MERN','Next JS','Spring boot','C/C++'],4,'SPE',3,'2021-06-01','2000-10-02');
+... addEmployee('EMP002','Soham','Patil','soham.patil@test.in','9158713569','A101','MG Road','Pune','India','411001',28000,'Developer',['Python','Django','JavaScript'],2,'InventorySys',1,'2021-06-01','1999-07-15');
+... addEmployee('EMP003','Siddesh','Shinde','siddesh.shinde@test.in','9158713570','B203','Baner Road','Pune','India','411045',32000,'Developer',['Java','Spring Boot'],3,'EcomPortal',2,'2020-01-15','1998-03-21');
+... addEmployee('EMP004','Pranav','Joshi','pranav.joshi@test.in','9158713571','C305','FC Road','Pune','India','411005',40000,'AI Engineer',['Python','TensorFlow','PyTorch'],5,'AI Chatbot',4,'2019-05-20','1995-11-30');
+... addEmployee('EMP005','Ravi','Deshmukh','ravi.deshmukh@test.in','9158713572','D101','Shivaji Nagar','Pune','India','411016',45000,'Project Manager',['Agile','Scrum','Leadership'],6,'SPE',5,'2018-08-10','1990-04-12');
+... addEmployee('EMP006','Amit','Kulkarni','amit.kulkarni@test.in','9158713573','E202','Sinhgad Road','Pune','India','411041',31000,'System Engineer',['NodeJS','Express','MongoDB'],4,'CRMSystem',2,'2020-09-14','1997-02-18');
+... addEmployee('EMP007','Neha','Patil','neha.patil@test.in','9158713574','F303','Kothrud','Pune','India','411038',36000,'Tester',['Selenium','Java','JUnit'],5,'HRPortal',4,'2019-12-25','1994-06-28');
+... addEmployee('EMP008','Raj','Verma','raj.verma@test.in','9158713575','G404','Viman Nagar','Pune','India','411014',27000,'Support Engineer',['Networking','Linux'],1,'HelpDesk',1,'2022-01-10','1999-12-10');
+... addEmployee('EMP009','Meena','Shah','meena.shah@test.in','9158713576','H101','Camp','Pune','India','411001',50000,'System Architect',['AWS','Azure','GCP'],7,'CloudInfra',6,'2017-03-05','1989-08-19');
+... addEmployee('EMP010','Anjali','Jadhav','anjali.jadhav@test.in','9158713577','I202','Hinjewadi','Pune','India','411057',25000,'Intern',['HTML','CSS','JavaScript'],0.5,'LandingPage',0.5,'2023-05-01','2002-05-15');
+...
+...
+
+Company_2573007> addTransaction('TR_001',new Date(),'Sandip','I001','Laptop',2,250000,'Credit',250000,true,'');
+... addTransaction('TR_002',new Date(),'Soham','I002','Mouse',5,1500,'Cash',1500,true,'Urgent order');
+... addTransaction('TR_003',new Date(),'Siddesh','I003','Keyboard',3,4500,'Debit',4500,true,'');
+... addTransaction('TR_004',new Date(),'Pranav','I004','GPU',1,85000,'Credit',85000,true,'High priority');
+... addTransaction('TR_005',new Date(),'Ravi','I005','Monitor',4,60000,'Credit',60000,true,'');
+... addTransaction('TR_006',new Date(),'Amit','I006','SSD',2,10000,'Cash',10000,true,'Quick delivery');
+... addTransaction('TR_007',new Date(),'Neha','I007','Headset',6,7200,'Debit',7200,true,'');
+... addTransaction('TR_008',new Date(),'Raj','I008','Router',2,5600,'Cash',5600,true,'Installation included');
+... addTransaction('TR_009',new Date(),'Meena','I009','Server Rack',1,120000,'Credit',120000,true,'');
+... addTransaction('TR_010',new Date(),'Anjali','I010','Pen Drive',10,2500,'Cash',2500,true,'Student discount');
+
+Company_2573007> db.Transaction.find().pretty();
+[
+  {
+    _id: ObjectId('689f706473204d583eeec4aa'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T17:37:40.564Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: '250000', PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4b5'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T17:48:06.145Z'),
+    Name: 'Sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: 250000, PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4b6'),
+    TransactionId: 'TR_002',
+    TransactionDate: ISODate('2025-08-15T17:48:06.152Z'),
+    Name: 'Soham',
+    TransactionDetails: { ItemId: 'I002', ItemName: 'Mouse', Quantity: 5, Price: 1500 },
+    Payment: { Type: 'Cash', TotalAmount: 1500, PaymentSuccessful: true },
+    remark: 'Urgent order'
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4b7'),
+    TransactionId: 'TR_003',
+    TransactionDate: ISODate('2025-08-15T17:48:06.158Z'),
+    Name: 'Siddesh',
+    TransactionDetails: { ItemId: 'I003', ItemName: 'Keyboard', Quantity: 3, Price: 4500 },
+    Payment: { Type: 'Debit', TotalAmount: 4500, PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4b8'),
+    TransactionId: 'TR_004',
+    TransactionDate: ISODate('2025-08-15T17:48:06.162Z'),
+    Name: 'Pranav',
+    TransactionDetails: { ItemId: 'I004', ItemName: 'GPU', Quantity: 1, Price: 85000 },
+    Payment: { Type: 'Credit', TotalAmount: 85000, PaymentSuccessful: true },
+    remark: 'High priority'
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4b9'),
+    TransactionId: 'TR_005',
+    TransactionDate: ISODate('2025-08-15T17:48:06.164Z'),
+    Name: 'Ravi',
+    TransactionDetails: { ItemId: 'I005', ItemName: 'Monitor', Quantity: 4, Price: 60000 },
+    Payment: { Type: 'Credit', TotalAmount: 60000, PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4ba'),
+    TransactionId: 'TR_006',
+    TransactionDate: ISODate('2025-08-15T17:48:06.168Z'),
+    Name: 'Amit',
+    TransactionDetails: { ItemId: 'I006', ItemName: 'SSD', Quantity: 2, Price: 10000 },
+    Payment: { Type: 'Cash', TotalAmount: 10000, PaymentSuccessful: true },
+    remark: 'Quick delivery'
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4bb'),
+    TransactionId: 'TR_007',
+    TransactionDate: ISODate('2025-08-15T17:48:06.172Z'),
+    Name: 'Neha',
+    TransactionDetails: { ItemId: 'I007', ItemName: 'Headset', Quantity: 6, Price: 7200 },
+    Payment: { Type: 'Debit', TotalAmount: 7200, PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4bc'),
+    TransactionId: 'TR_008',
+    TransactionDate: ISODate('2025-08-15T17:48:06.176Z'),
+    Name: 'Raj',
+    TransactionDetails: { ItemId: 'I008', ItemName: 'Router', Quantity: 2, Price: 5600 },
+    Payment: { Type: 'Cash', TotalAmount: 5600, PaymentSuccessful: true },
+    remark: 'Installation included'
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4bd'),
+    TransactionId: 'TR_009',
+    TransactionDate: ISODate('2025-08-15T17:48:06.179Z'),
+    Name: 'Meena',
+    TransactionDetails: {
+      ItemId: 'I009',
+      ItemName: 'Server Rack',
+      Quantity: 1,
+      Price: 120000
+    },
+    Payment: { Type: 'Credit', TotalAmount: 120000, PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f72d673204d583eeec4be'),
+    TransactionId: 'TR_010',
+    TransactionDate: ISODate('2025-08-15T17:48:06.181Z'),
+    Name: 'Anjali',
+    TransactionDetails: {
+      ItemId: 'I010',
+      ItemName: 'Pen Drive',
+      Quantity: 10,
+      Price: 2500
+    },
+    Payment: { Type: 'Cash', TotalAmount: 2500, PaymentSuccessful: true },
+    remark: 'Student discount'
+  }
+]
+Company_2573007> db.Employee.find().pretty();
+[
+  {
+    _id: ObjectId('689f6eec73204d583eeec4a9'),
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: '35000',
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'CC++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-01-05T18:30:00.000Z'),
+    BirthDate: ISODate('2000-10-01T18:30:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4ab'),
+    EmployeeId: 'EMP001',
+    FirstName: 'Sandip',
+    LastName: 'Kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: 35000,
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'C/C++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-06-01T00:00:00.000Z'),
+    BirthDate: ISODate('2000-10-02T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4ac'),
+    EmployeeId: 'EMP002',
+    FirstName: 'Soham',
+    LastName: 'Patil',
+    Email: 'soham.patil@test.in',
+    PhoneNumber: '9158713569',
+    Address: {
+      HouseNo: 'A101',
+      Street: 'MG Road',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411001'
+    },
+    Salary: 28000,
+    Designation: 'Developer',
+    Skills: [ 'Python', 'Django', 'JavaScript' ],
+    Experience: 2,
+    ProjectName: 'InventorySys',
+    ProjectExperience: 1,
+    DateOfJoining: ISODate('2021-06-01T00:00:00.000Z'),
+    BirthDate: ISODate('1999-07-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4ad'),
+    EmployeeId: 'EMP003',
+    FirstName: 'Siddesh',
+    LastName: 'Shinde',
+    Email: 'siddesh.shinde@test.in',
+    PhoneNumber: '9158713570',
+    Address: {
+      HouseNo: 'B203',
+      Street: 'Baner Road',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411045'
+    },
+    Salary: 32000,
+    Designation: 'Developer',
+    Skills: [ 'Java', 'Spring Boot' ],
+    Experience: 3,
+    ProjectName: 'EcomPortal',
+    ProjectExperience: 2,
+    DateOfJoining: ISODate('2020-01-15T00:00:00.000Z'),
+    BirthDate: ISODate('1998-03-21T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4ae'),
+    EmployeeId: 'EMP004',
+    FirstName: 'Pranav',
+    LastName: 'Joshi',
+    Email: 'pranav.joshi@test.in',
+    PhoneNumber: '9158713571',
+    Address: {
+      HouseNo: 'C305',
+      Street: 'FC Road',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411005'
+    },
+    Salary: 40000,
+    Designation: 'AI Engineer',
+    Skills: [ 'Python', 'TensorFlow', 'PyTorch' ],
+    Experience: 5,
+    ProjectName: 'AI Chatbot',
+    ProjectExperience: 4,
+    DateOfJoining: ISODate('2019-05-20T00:00:00.000Z'),
+    BirthDate: ISODate('1995-11-30T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4af'),
+    EmployeeId: 'EMP005',
+    FirstName: 'Ravi',
+    LastName: 'Deshmukh',
+    Email: 'ravi.deshmukh@test.in',
+    PhoneNumber: '9158713572',
+    Address: {
+      HouseNo: 'D101',
+      Street: 'Shivaji Nagar',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411016'
+    },
+    Salary: 45000,
+    Designation: 'Project Manager',
+    Skills: [ 'Agile', 'Scrum', 'Leadership' ],
+    Experience: 6,
+    ProjectName: 'SPE',
+    ProjectExperience: 5,
+    DateOfJoining: ISODate('2018-08-10T00:00:00.000Z'),
+    BirthDate: ISODate('1990-04-12T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4b0'),
+    EmployeeId: 'EMP006',
+    FirstName: 'Amit',
+    LastName: 'Kulkarni',
+    Email: 'amit.kulkarni@test.in',
+    PhoneNumber: '9158713573',
+    Address: {
+      HouseNo: 'E202',
+      Street: 'Sinhgad Road',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411041'
+    },
+    Salary: 31000,
+    Designation: 'System Engineer',
+    Skills: [ 'NodeJS', 'Express', 'MongoDB' ],
+    Experience: 4,
+    ProjectName: 'CRMSystem',
+    ProjectExperience: 2,
+    DateOfJoining: ISODate('2020-09-14T00:00:00.000Z'),
+    BirthDate: ISODate('1997-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4b1'),
+    EmployeeId: 'EMP007',
+    FirstName: 'Neha',
+    LastName: 'Patil',
+    Email: 'neha.patil@test.in',
+    PhoneNumber: '9158713574',
+    Address: {
+      HouseNo: 'F303',
+      Street: 'Kothrud',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411038'
+    },
+    Salary: 36000,
+    Designation: 'Tester',
+    Skills: [ 'Selenium', 'Java', 'JUnit' ],
+    Experience: 5,
+    ProjectName: 'HRPortal',
+    ProjectExperience: 4,
+    DateOfJoining: ISODate('2019-12-25T00:00:00.000Z'),
+    BirthDate: ISODate('1994-06-28T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4b2'),
+    EmployeeId: 'EMP008',
+    FirstName: 'Raj',
+    LastName: 'Verma',
+    Email: 'raj.verma@test.in',
+    PhoneNumber: '9158713575',
+    Address: {
+      HouseNo: 'G404',
+      Street: 'Viman Nagar',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411014'
+    },
+    Salary: 27000,
+    Designation: 'Support Engineer',
+    Skills: [ 'Networking', 'Linux' ],
+    Experience: 1,
+    ProjectName: 'HelpDesk',
+    ProjectExperience: 1,
+    DateOfJoining: ISODate('2022-01-10T00:00:00.000Z'),
+    BirthDate: ISODate('1999-12-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4b3'),
+    EmployeeId: 'EMP009',
+    FirstName: 'Meena',
+    LastName: 'Shah',
+    Email: 'meena.shah@test.in',
+    PhoneNumber: '9158713576',
+    Address: {
+      HouseNo: 'H101',
+      Street: 'Camp',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411001'
+    },
+    Salary: 50000,
+    Designation: 'System Architect',
+    Skills: [ 'AWS', 'Azure', 'GCP' ],
+    Experience: 7,
+    ProjectName: 'CloudInfra',
+    ProjectExperience: 6,
+    DateOfJoining: ISODate('2017-03-05T00:00:00.000Z'),
+    BirthDate: ISODate('1989-08-19T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f72c073204d583eeec4b4'),
+    EmployeeId: 'EMP010',
+    FirstName: 'Anjali',
+    LastName: 'Jadhav',
+    Email: 'anjali.jadhav@test.in',
+    PhoneNumber: '9158713577',
+    Address: {
+      HouseNo: 'I202',
+      Street: 'Hinjewadi',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411057'
+    },
+    Salary: 25000,
+    Designation: 'Intern',
+    Skills: [ 'HTML', 'CSS', 'JavaScript' ],
+    Experience: 0.5,
+    ProjectName: 'LandingPage',
+    ProjectExperience: 0.5,
+    DateOfJoining: ISODate('2023-05-01T00:00:00.000Z'),
+    BirthDate: ISODate('2002-05-15T00:00:00.000Z')
+  }
+]

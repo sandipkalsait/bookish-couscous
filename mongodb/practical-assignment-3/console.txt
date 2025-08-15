@@ -1,0 +1,626 @@
+2573007> db.Employee.insertMany([
+...   {
+...     EmployeeId: 'EMP001',
+...     FirstName: 'sandip',
+...     LastName: 'kalsait',
+...     Email: 'sandip.kalsait@test.in',
+...     PhoneNumber: '9158713568',
+...     Address: {
+...       HouseNo: 'H202',
+...       Street: 'Jagtap Dairy',
+...       City: 'Pune',
+...       Country: 'India',
+...       PinCode: '411011'
+...     },
+...     Salary: 35000,
+...     Designation: 'System Engineer',
+...     Skills: ['Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'C\\C++'],
+...     Experience: 4,
+...     ProjectName: 'SPE',
+...     ProjectExperience: 3,
+...     DateOfJoining: new Date('2021-06-01'),
+...     BirthDate: new Date('2000-02-10')
+...   },
+...   {
+...     EmployeeId: 'EMP002',
+...     FirstName: 'John',
+...     LastName: 'Doe',
+...     Email: 'john.doe@test.in',
+...     PhoneNumber: '9876543210',
+...     Address: {
+...       HouseNo: 'B302',
+...       Street: 'MG Road',
+...       City: 'Mumbai',
+...       Country: 'India',
+...       PinCode: '400001'
+...     },
+...     Salary: 22000,
+...     Designation: 'Manager',
+...     Skills: ['Java', 'Python'],
+...     Experience: 6,
+...     ProjectName: 'SPE',
+...     ProjectExperience: 4,
+...     DateOfJoining: new Date('2018-04-15'),
+...     BirthDate: new Date('1990-07-12')
+...   },
+...   {
+...     EmployeeId: 'EMP003',
+...     FirstName: 'Jane',
+...     LastName: 'Smith',
+...     Email: 'jane.smith@test.in',
+...     PhoneNumber: '9123456789',
+...     Address: {
+...       HouseNo: 'C101',
+...       Street: 'IT Park',
+...       City: 'Bengaluru',
+...       Country: 'India',
+...       PinCode: '560001'
+...     },
+...     Salary: 18000,
+...     Designation: 'Floor Supervisor',
+...     Skills: ['MongoDB', 'Python'],
+...     Experience: 3,
+...     ProjectName: 'Alpha',
+...     ProjectExperience: 2,
+...     DateOfJoining: new Date('2020-09-01'),
+...     BirthDate: new Date('1995-03-21')
+...   }
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('689f79c673204d583eeec4c1'),
+    '1': ObjectId('689f79c673204d583eeec4c2'),
+    '2': ObjectId('689f79c673204d583eeec4c3')
+  }
+}
+2573007> db.Transaction.insertMany([
+...   {
+...     TransactionId: 'TR_001',
+...     TransactionDate: new Date('2025-08-15'),
+...     Name: 'sandip',
+...     TransactionDetails: {
+...       ItemId: 'I001',
+...       ItemName: 'Laptop',
+...       Quantity: 2,
+...       Price: 250000
+...     },
+...     Payment: {
+...       Type: 'Credit',
+...       TotalAmount: 250000,
+...       PaymentSuccessful: true
+...     },
+...     Status: 'Done',
+...     remark: ''
+...   },
+...   {
+...     TransactionId: 'TR_002',
+...     TransactionDate: new Date('2025-08-15'),
+...     Name: 'John',
+...     TransactionDetails: {
+...       ItemId: 'I001',
+...       ItemName: 'Laptop',
+...       Quantity: 1,
+...       Price: 250000
+...     },
+...     Payment: {
+...       Type: 'Cash',
+...       TotalAmount: 250000,
+...       PaymentSuccessful: true
+...     },
+...     Status: 'Pending',
+...     remark: 'Urgent'
+...   },
+...   {
+...     TransactionId: 'TR_003',
+...     TransactionDate: new Date('2025-08-14'),
+...     Name: 'Jane',
+...     TransactionDetails: {
+...       ItemId: 'I002',
+...       ItemName: 'Mouse',
+...       Quantity: 4,
+...       Price: 500
+...     },
+...     Payment: {
+...       Type: 'Debit',
+...       TotalAmount: 2000,
+...       PaymentSuccessful: false
+...     },
+...     Status: 'Cancelled',
+...     remark: ''
+...   }
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('689f79d273204d583eeec4c4'),
+    '1': ObjectId('689f79d273204d583eeec4c5'),
+    '2': ObjectId('689f79d273204d583eeec4c6')
+  }
+}
+2573007> db.Employee.find({ Designation: { $in: ['Manager', 'Floor Supervisor'] } });
+[
+  {
+    _id: ObjectId('689f79c673204d583eeec4c2'),
+    EmployeeId: 'EMP002',
+    FirstName: 'John',
+    LastName: 'Doe',
+    Email: 'john.doe@test.in',
+    PhoneNumber: '9876543210',
+    Address: {
+      HouseNo: 'B302',
+      Street: 'MG Road',
+      City: 'Mumbai',
+      Country: 'India',
+      PinCode: '400001'
+    },
+    Salary: 22000,
+    Designation: 'Manager',
+    Skills: [ 'Java', 'Python' ],
+    Experience: 6,
+    ProjectName: 'SPE',
+    ProjectExperience: 4,
+    DateOfJoining: ISODate('2018-04-15T00:00:00.000Z'),
+    BirthDate: ISODate('1990-07-12T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f79c673204d583eeec4c3'),
+    EmployeeId: 'EMP003',
+    FirstName: 'Jane',
+    LastName: 'Smith',
+    Email: 'jane.smith@test.in',
+    PhoneNumber: '9123456789',
+    Address: {
+      HouseNo: 'C101',
+      Street: 'IT Park',
+      City: 'Bengaluru',
+      Country: 'India',
+      PinCode: '560001'
+    },
+    Salary: 18000,
+    Designation: 'Floor Supervisor',
+    Skills: [ 'MongoDB', 'Python' ],
+    Experience: 3,
+    ProjectName: 'Alpha',
+    ProjectExperience: 2,
+    DateOfJoining: ISODate('2020-09-01T00:00:00.000Z'),
+    BirthDate: ISODate('1995-03-21T00:00:00.000Z')
+  }
+]
+2573007> db.Employee.aggregate([
+...   { $group: { _id: "$ProjectName", employees: { $push: "$$ROOT" }, count: { $sum: 1 } } },
+...   { $match: { count: { $gt: 1 } } }
+... ]);
+...
+[
+  {
+    _id: 'SPE',
+    employees: [
+      {
+        _id: ObjectId('689f78f073204d583eeec4bf'),
+        EmployeeId: 'EMP001',
+        FirstName: 'sandip',
+        LastName: 'kalsait',
+        Email: 'sandip.kalsait@test.in',
+        PhoneNumber: '9158713568',
+        Address: {
+          HouseNo: 'H202',
+          Street: 'Jagtap Dairy',
+          City: 'Pune',
+          Country: 'India',
+          PinCode: '411011'
+        },
+        Salary: '35000',
+        Designation: 'System Engineer',
+        Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'CC++' ],
+        Experience: 4,
+        ProjectName: 'SPE',
+        ProjectExperience: 3,
+        DateOfJoining: ISODate('2021-01-05T18:30:00.000Z'),
+        BirthDate: ISODate('2000-10-01T18:30:00.000Z')
+      },
+      {
+        _id: ObjectId('689f79c673204d583eeec4c1'),
+        EmployeeId: 'EMP001',
+        FirstName: 'sandip',
+        LastName: 'kalsait',
+        Email: 'sandip.kalsait@test.in',
+        PhoneNumber: '9158713568',
+        Address: {
+          HouseNo: 'H202',
+          Street: 'Jagtap Dairy',
+          City: 'Pune',
+          Country: 'India',
+          PinCode: '411011'
+        },
+        Salary: 35000,
+        Designation: 'System Engineer',
+        Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'C\\C++' ],
+        Experience: 4,
+        ProjectName: 'SPE',
+        ProjectExperience: 3,
+        DateOfJoining: ISODate('2021-06-01T00:00:00.000Z'),
+        BirthDate: ISODate('2000-02-10T00:00:00.000Z')
+      },
+      {
+        _id: ObjectId('689f79c673204d583eeec4c2'),
+        EmployeeId: 'EMP002',
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'john.doe@test.in',
+        PhoneNumber: '9876543210',
+        Address: {
+          HouseNo: 'B302',
+          Street: 'MG Road',
+          City: 'Mumbai',
+          Country: 'India',
+          PinCode: '400001'
+        },
+        Salary: 22000,
+        Designation: 'Manager',
+        Skills: [ 'Java', 'Python' ],
+        Experience: 6,
+        ProjectName: 'SPE',
+        ProjectExperience: 4,
+        DateOfJoining: ISODate('2018-04-15T00:00:00.000Z'),
+        BirthDate: ISODate('1990-07-12T00:00:00.000Z')
+      }
+    ],
+    count: 3
+  }
+]
+2573007> db.Employee.find({ FirstName: 'sandip', LastName: 'kalsait' });
+[
+  {
+    _id: ObjectId('689f78f073204d583eeec4bf'),
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: '35000',
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'CC++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-01-05T18:30:00.000Z'),
+    BirthDate: ISODate('2000-10-01T18:30:00.000Z')
+  },
+  {
+    _id: ObjectId('689f79c673204d583eeec4c1'),
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: 35000,
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'C\\C++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-06-01T00:00:00.000Z'),
+    BirthDate: ISODate('2000-02-10T00:00:00.000Z')
+  }
+]
+2573007> db.Transaction.find({ "Payment.PaymentSuccessful": true });
+[
+  {
+    _id: ObjectId('689f790473204d583eeec4c0'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T18:14:28.036Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: '250000', PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f79d273204d583eeec4c4'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Done',
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f79d273204d583eeec4c5'),
+    TransactionId: 'TR_002',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'John',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 1, Price: 250000 },
+    Payment: { Type: 'Cash', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Pending',
+    remark: 'Urgent'
+  }
+]
+2573007> db.Transaction.find({ Name: 'sandip' });
+[
+  {
+    _id: ObjectId('689f790473204d583eeec4c0'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T18:14:28.036Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: '250000', PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f79d273204d583eeec4c4'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Done',
+    remark: ''
+  }
+]
+2573007> db.Employee.find({ Skills: { $all: ['Java', 'Python'] } });
+[
+  {
+    _id: ObjectId('689f79c673204d583eeec4c2'),
+    EmployeeId: 'EMP002',
+    FirstName: 'John',
+    LastName: 'Doe',
+    Email: 'john.doe@test.in',
+    PhoneNumber: '9876543210',
+    Address: {
+      HouseNo: 'B302',
+      Street: 'MG Road',
+      City: 'Mumbai',
+      Country: 'India',
+      PinCode: '400001'
+    },
+    Salary: 22000,
+    Designation: 'Manager',
+    Skills: [ 'Java', 'Python' ],
+    Experience: 6,
+    ProjectName: 'SPE',
+    ProjectExperience: 4,
+    DateOfJoining: ISODate('2018-04-15T00:00:00.000Z'),
+    BirthDate: ISODate('1990-07-12T00:00:00.000Z')
+  }
+]
+2573007> db.Transaction.find({ TransactionDate: new Date('2025-08-15') }, { _id: 0 });
+[
+  {
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Done',
+    remark: ''
+  },
+  {
+    TransactionId: 'TR_002',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'John',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 1, Price: 250000 },
+    Payment: { Type: 'Cash', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Pending',
+    remark: 'Urgent'
+  }
+]
+2573007> db.Employee.find({}, { FirstName: 1, LastName: 1, EmployeeId: 1, BirthDate: 1, _id: 0 });
+[
+  {
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    BirthDate: ISODate('2000-10-01T18:30:00.000Z')
+  },
+  {
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    BirthDate: ISODate('2000-02-10T00:00:00.000Z')
+  },
+  {
+    EmployeeId: 'EMP002',
+    FirstName: 'John',
+    LastName: 'Doe',
+    BirthDate: ISODate('1990-07-12T00:00:00.000Z')
+  },
+  {
+    EmployeeId: 'EMP003',
+    FirstName: 'Jane',
+    LastName: 'Smith',
+    BirthDate: ISODate('1995-03-21T00:00:00.000Z')
+  }
+]
+2573007> db.Employee.find({ Salary: { $gt: 20000 } });
+[
+  {
+    _id: ObjectId('689f79c673204d583eeec4c1'),
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: 35000,
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'C\\C++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-06-01T00:00:00.000Z'),
+    BirthDate: ISODate('2000-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('689f79c673204d583eeec4c2'),
+    EmployeeId: 'EMP002',
+    FirstName: 'John',
+    LastName: 'Doe',
+    Email: 'john.doe@test.in',
+    PhoneNumber: '9876543210',
+    Address: {
+      HouseNo: 'B302',
+      Street: 'MG Road',
+      City: 'Mumbai',
+      Country: 'India',
+      PinCode: '400001'
+    },
+    Salary: 22000,
+    Designation: 'Manager',
+    Skills: [ 'Java', 'Python' ],
+    Experience: 6,
+    ProjectName: 'SPE',
+    ProjectExperience: 4,
+    DateOfJoining: ISODate('2018-04-15T00:00:00.000Z'),
+    BirthDate: ISODate('1990-07-12T00:00:00.000Z')
+  }
+]
+2573007> db.Transaction.find({ Status: 'Done' });
+[
+  {
+    _id: ObjectId('689f79d273204d583eeec4c4'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Done',
+    remark: ''
+  }
+]
+2573007> db.Employee.aggregate([{ $group: { _id: null, totalSalary: { $sum: "$Salary" } } }]);
+[ { _id: null, totalSalary: 75000 } ]
+2573007> db.Employee.countDocuments({ Salary: { $gt: 20000 } });
+2
+2573007> db.Employee.find().sort({ Salary: -1 }).limit(1);
+[
+  {
+    _id: ObjectId('689f78f073204d583eeec4bf'),
+    EmployeeId: 'EMP001',
+    FirstName: 'sandip',
+    LastName: 'kalsait',
+    Email: 'sandip.kalsait@test.in',
+    PhoneNumber: '9158713568',
+    Address: {
+      HouseNo: 'H202',
+      Street: 'Jagtap Dairy',
+      City: 'Pune',
+      Country: 'India',
+      PinCode: '411011'
+    },
+    Salary: '35000',
+    Designation: 'System Engineer',
+    Skills: [ 'Java', 'MEAN', 'MERN', 'Next JS', 'Spring boot', 'CC++' ],
+    Experience: 4,
+    ProjectName: 'SPE',
+    ProjectExperience: 3,
+    DateOfJoining: ISODate('2021-01-05T18:30:00.000Z'),
+    BirthDate: ISODate('2000-10-01T18:30:00.000Z')
+  }
+]
+2573007> db.Employee.find().sort({ Salary: 1 }).limit(1);
+[
+  {
+    _id: ObjectId('689f79c673204d583eeec4c3'),
+    EmployeeId: 'EMP003',
+    FirstName: 'Jane',
+    LastName: 'Smith',
+    Email: 'jane.smith@test.in',
+    PhoneNumber: '9123456789',
+    Address: {
+      HouseNo: 'C101',
+      Street: 'IT Park',
+      City: 'Bengaluru',
+      Country: 'India',
+      PinCode: '560001'
+    },
+    Salary: 18000,
+    Designation: 'Floor Supervisor',
+    Skills: [ 'MongoDB', 'Python' ],
+    Experience: 3,
+    ProjectName: 'Alpha',
+    ProjectExperience: 2,
+    DateOfJoining: ISODate('2020-09-01T00:00:00.000Z'),
+    BirthDate: ISODate('1995-03-21T00:00:00.000Z')
+  }
+]
+2573007> db.Transaction.aggregate([{ $group: { _id: "$Name", totalPaid: { $sum: "$Payment.TotalAmount" } } }]);
+[
+  { _id: 'sandip', totalPaid: 250000 },
+  { _id: 'John', totalPaid: 250000 },
+  { _id: 'Jane', totalPaid: 2000 }
+]
+2573007> db.Transaction.aggregate([
+...   { $match: { "TransactionDetails.ItemId": "I001" } },
+...   { $group: { _id: null, totalQuantity: { $sum: "$TransactionDetails.Quantity" } } }
+... ]);
+[ { _id: null, totalQuantity: 5 } ]
+2573007> db.Transaction.find({ "TransactionDetails.Quantity": { $lt: 3 } });
+[
+  {
+    _id: ObjectId('689f790473204d583eeec4c0'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T18:14:28.036Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: '250000', PaymentSuccessful: true },
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f79d273204d583eeec4c4'),
+    TransactionId: 'TR_001',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'sandip',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 2, Price: 250000 },
+    Payment: { Type: 'Credit', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Done',
+    remark: ''
+  },
+  {
+    _id: ObjectId('689f79d273204d583eeec4c5'),
+    TransactionId: 'TR_002',
+    TransactionDate: ISODate('2025-08-15T00:00:00.000Z'),
+    Name: 'John',
+    TransactionDetails: { ItemId: 'I001', ItemName: 'Laptop', Quantity: 1, Price: 250000 },
+    Payment: { Type: 'Cash', TotalAmount: 250000, PaymentSuccessful: true },
+    Status: 'Pending',
+    remark: 'Urgent'
+  }
+]
+2573007> db.Transaction.aggregate([
+...   { $sort: { "TransactionDetails.Price": 1 } },
+...   { $limit: 1 }
+... ]);
+[
+  {
+    _id: ObjectId('689f79d273204d583eeec4c6'),
+    TransactionId: 'TR_003',
+    TransactionDate: ISODate('2025-08-14T00:00:00.000Z'),
+    Name: 'Jane',
+    TransactionDetails: { ItemId: 'I002', ItemName: 'Mouse', Quantity: 4, Price: 500 },
+    Payment: { Type: 'Debit', TotalAmount: 2000, PaymentSuccessful: false },
+    Status: 'Cancelled',
+    remark: ''
+  }
+]
+2573007>
