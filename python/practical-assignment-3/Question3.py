@@ -126,3 +126,106 @@ def main():
             print("Invalid choice.")
 
 main()
+
+
+
+
+
+
+
+
+
+# Result
+
+# PS C:\Users\kalsa\OneDrive\Backup storage\OneDrive\Desktop\MSc computer science\bookish-couscous> & C:/Users/kalsa/AppData/Local/Microsoft/WindowsApps/python3.11.exe "c:/Users/kalsa/OneDrive/Backup storage/OneDrive/Desktop/MSc computer science/bookish-couscous/python/practical-assignment-3/Question3.py"
+#             #------------- Employee CRUD Menu -----------#
+#             1. Add Employee
+#             2. Update Employee
+#             3. Delete Employee
+#             4. Print Employee Records
+#             0. Exit
+
+# Enter your choice: 1
+# Enter EmployeeId (unique, numeric): 1001
+# EmployeeId already exists!
+# Enter EmployeeId (unique, numeric): 1002
+# EmployeeId already exists!
+# Enter EmployeeId (unique, numeric): 1003
+# EmployeeId already exists!
+# Enter EmployeeId (unique, numeric): 1005
+# Enter Employee Name: Sandip Kalsait
+# Departments: HR, IT, Sales, Finance, Marketing
+# Enter Department: IT 
+# Enter Salary (numeric): 45000
+# Employee 1005 added successfully.
+# Want to add another employee? YES/NO: no
+
+#             #------------- Employee CRUD Menu -----------#
+#             1. Add Employee
+#             2. Update Employee
+#             3. Delete Employee
+#             4. Print Employee Records
+#             0. Exit
+
+# Enter your choice: 4
+
+# Employee Records:
+# 1001: {'Name': 'Rahul Sharma', 'Dept': 'IT', 'Salary': 50000}
+# 1002: {'Name': 'Priya Singh', 'Dept': 'HR', 'Salary': 45000}
+# 1003: {'Name': 'Amit Kumar', 'Dept': 'Sales', 'Salary': 40000}
+# 1005: {'Name': 'Sandip Kalsait', 'Dept': 'IT', 'Salary': 45000}
+
+#             #------------- Employee CRUD Menu -----------#
+#             1. Add Employee
+#             2. Update Employee
+#             3. Delete Employee
+#             4. Print Employee Records
+#             0. Exit
+
+# Enter your choice: 2
+# Enter EmployeeId to update: 2
+# EmployeeId not found!
+# Try another EmployeeId? YES/NO: yes
+# Enter EmployeeId to update: 1002
+# Leave blank to keep current value.
+# Enter new Name (Priya Singh): Priya Kalsait
+# Departments: HR, IT, Sales, Finance, Marketing
+# Enter new Dept (HR): IT
+# Enter new Salary (45000): 50000
+# Employee 1002 updated successfully.
+# Want to update another employee? YES/NO: no
+
+#             #------------- Employee CRUD Menu -----------#
+#             1. Add Employee
+#             2. Update Employee
+#             3. Delete Employee
+#             4. Print Employee Records
+#             0. Exit
+
+# Enter your choice: 3
+# Enter EmployeeId to delete: 1002
+# Employee 1002 deleted.
+# Delete another employee? YES/NO: 4
+
+#             #------------- Employee CRUD Menu -----------#
+#             1. Add Employee
+#             2. Update Employee
+#             3. Delete Employee
+#             4. Print Employee Records
+#             0. Exit
+
+# Enter your choice: 4
+
+# Employee Records:
+# 1001: {'Name': 'Rahul Sharma', 'Dept': 'IT', 'Salary': 50000}
+# 1003: {'Name': 'Amit Kumar', 'Dept': 'Sales', 'Salary': 40000}
+# 1005: {'Name': 'Sandip Kalsait', 'Dept': 'IT', 'Salary': 45000}
+
+#             #------------- Employee CRUD Menu -----------#
+#             1. Add Employee
+#             2. Update Employee
+#             3. Delete Employee
+#             4. Print Employee Records
+#             0. Exit
+
+# Enter your choice:

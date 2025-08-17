@@ -1,7 +1,7 @@
 # Create list of string &
 # Count the ocurrence of each element
 # Without using built-in function count()
-
+ 
 def accept_strings(n):
      list_of_strings=[]
      for iterator in range( 0 , n ):
