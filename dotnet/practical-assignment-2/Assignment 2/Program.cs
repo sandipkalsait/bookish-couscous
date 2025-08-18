@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assignment_1
+namespace Assignment_2
 {
     internal class Program
     {
@@ -9,9 +9,7 @@ namespace Assignment_1
             Programs programs = new Programs();
             do
             {
-               
                 programs.PrintMenu();
-
                 Console.Write("Enter your choice : ");
                 int choice;
                 bool validChoice = int.TryParse(Console.ReadLine(), out choice);
@@ -25,55 +23,55 @@ namespace Assignment_1
                 switch (choice)
                 {
                     case 1:
-                        programs.CheckElectionEligibility();
-                        break;
-
-                    case 2:
                         programs.CheckEvenOdd();
                         break;
 
-                    case 3:
+                    case 2:
                         programs.CheckPositiveOrNegative();
                         break;
 
-                    case 4:
+                    case 3:
                         programs.FindLargestOfThree();
                         break;
 
-                    case 5:
+                    case 4:
                         programs.SwapNumbers();
                         break;
 
-                    case 6:
+                    case 5:
                         programs.SumOfMultiplesOf3And5();
                         break;
 
-                    case 7:
+                    case 6:
                         programs.SumOfDigits();
                         break;
 
-                    case 8:
+                    case 7:
                         programs.ReverseAndCheckPalindrome();
                         break;
 
-                    case 9:
+                    case 8:
                         programs.BasicOperations();
                         break;
 
-                    case 10:
+                    case 9:
                         programs.ReadGrade();
                         break;
 
-                    case 11:
+                    case 10:
                         programs.ToggleCase();
                         break;
 
-                    case 12:
+                    case 11:
                         programs.CheckPerfectNumber();
                         break;
 
-                    case 13:
+                    case 12:
                         programs.CheckArmstrong();
+                        break;
+
+                    case 13:
+                        programs.ReverseNumber();
                         break;
 
                     case 14:
@@ -92,7 +90,6 @@ namespace Assignment_1
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
-
             } while (true);
         }
     }
