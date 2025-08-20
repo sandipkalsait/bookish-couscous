@@ -1,4 +1,4 @@
-namespace Asssignment_3_Q3
+namespace Assignment_3_Q7
 {
     internal static class Program
     {
@@ -11,7 +11,7 @@ namespace Asssignment_3_Q3
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new StudentForm());
+            Application.Run(new Form1());
         }
     }
 }
