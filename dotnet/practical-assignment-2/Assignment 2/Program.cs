@@ -2,6 +2,9 @@
 
 namespace Assignment_2
 {
+    // Custom delegate
+    internal delegate void FunctionDelegate();
+
     internal class Program
     {
         static void Main(string[] args)
@@ -31,16 +34,64 @@ namespace Assignment_2
                     case 5: programs.SumOfMultiplesOf3And5(); break;
                     case 6: programs.SumOfDigits(); break;
 
-                    // Delegate-based calls
-                    case 7: new FunctionDelegate(programs.ReverseAndCheckPalindrome)(); break;
-                    case 8: new FunctionDelegate(programs.BasicOperations)(); break;
-                    case 9: new FunctionDelegate(programs.ReadGrade)(); break;
-                    case 10: new FunctionDelegate(programs.ToggleCase)(); break;
-                    case 11: new FunctionDelegate(programs.CheckPerfectNumber)(); break;
-                    case 12: new FunctionDelegate(programs.CheckArmstrong)(); break;
-                    case 13: new FunctionDelegate(programs.ReverseNumber)(); break;
-                    case 14: new FunctionDelegate(programs.ConcatStrings)(); break;
-                    case 15: new FunctionDelegate(programs.FindStringLength)(); break;
+                    // Delegate-based calls (Custom delegate)
+                    case 7:
+                        FunctionDelegate fd1 = programs.ReverseAndCheckPalindrome;
+                        fd1();
+                        break;
+
+                    case 8:
+                        FunctionDelegate fd2 = programs.BasicOperations;
+                        fd2();
+                        break;
+
+                    // Using built-in delegates
+                    case 9:
+                        Action readGrade = programs.ReadGrade;
+                        readGrade();
+                        break;
+
+                    case 10:
+                        Action toggleCase = programs.ToggleCase;
+                        toggleCase();
+                        break;
+
+                    case 11:
+                        Func<int, bool> isPerfect = programs.CheckPerfectNumber;
+                        Console.Write("Enter number: ");
+                        int n1 = int.Parse(Console.ReadLine());
+                        Console.WriteLine(isPerfect(n1) ? "Perfect" : "Not Perfect");
+                        break;
+
+                    case 12:
+                        Predicate<int> isArmstrong = programs.CheckArmstrong;
+                        Console.Write("Enter number: ");
+                        int n2 = int.Parse(Console.ReadLine());
+                        Console.WriteLine(isArmstrong(n2) ? "Armstrong" : "Not Armstrong");
+                        break;
+
+                    case 13:
+                        Func<int, int> reverse = programs.ReverseNumber;
+                        Console.Write("Enter number: ");
+                        int num = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Reversed: " + reverse(num));
+                        break;
+
+                    case 14:
+                        Func<string, string, string> concat = programs.ConcatStrings;
+                        Console.Write("Enter first string: ");
+                        string s1 = Console.ReadLine();
+                        Console.Write("Enter second string: ");
+                        string s2 = Console.ReadLine();
+                        Console.WriteLine("Concatenated: " + concat(s1, s2));
+                        break;
+
+                    case 15:
+                        Func<string, int> strlen = programs.FindStringLength;
+                        Console.Write("Enter string: ");
+                        string input = Console.ReadLine();
+                        Console.WriteLine("Length: " + strlen(input));
+                        break;
 
                     case 0:
                         Console.WriteLine("Exiting... Goodbye!");
