@@ -7,11 +7,12 @@ namespace Assignment_2
         static void Main(string[] args)
         {
             Programs programs = new Programs();
+            int choice;
+
             do
             {
                 programs.PrintMenu();
                 Console.Write("Enter your choice : ");
-                int choice;
                 bool validChoice = int.TryParse(Console.ReadLine(), out choice);
 
                 if (!validChoice)
@@ -20,67 +21,26 @@ namespace Assignment_2
                     continue;
                 }
 
+                // Direct function calls
                 switch (choice)
                 {
-                    case 1:
-                        programs.CheckEvenOdd();
-                        break;
+                    case 1: programs.CheckEvenOdd(); break;
+                    case 2: programs.CheckPositiveOrNegative(); break;
+                    case 3: programs.FindLargestOfThree(); break;
+                    case 4: programs.SwapNumbers(); break;
+                    case 5: programs.SumOfMultiplesOf3And5(); break;
+                    case 6: programs.SumOfDigits(); break;
 
-                    case 2:
-                        programs.CheckPositiveOrNegative();
-                        break;
-
-                    case 3:
-                        programs.FindLargestOfThree();
-                        break;
-
-                    case 4:
-                        programs.SwapNumbers();
-                        break;
-
-                    case 5:
-                        programs.SumOfMultiplesOf3And5();
-                        break;
-
-                    case 6:
-                        programs.SumOfDigits();
-                        break;
-
-                    case 7:
-                        programs.ReverseAndCheckPalindrome();
-                        break;
-
-                    case 8:
-                        programs.BasicOperations();
-                        break;
-
-                    case 9:
-                        programs.ReadGrade();
-                        break;
-
-                    case 10:
-                        programs.ToggleCase();
-                        break;
-
-                    case 11:
-                        programs.CheckPerfectNumber();
-                        break;
-
-                    case 12:
-                        programs.CheckArmstrong();
-                        break;
-
-                    case 13:
-                        programs.ReverseNumber();
-                        break;
-
-                    case 14:
-                        programs.ConcatStrings();
-                        break;
-
-                    case 15:
-                        programs.FindStringLength();
-                        break;
+                    // Delegate-based calls
+                    case 7: new FunctionDelegate(programs.ReverseAndCheckPalindrome)(); break;
+                    case 8: new FunctionDelegate(programs.BasicOperations)(); break;
+                    case 9: new FunctionDelegate(programs.ReadGrade)(); break;
+                    case 10: new FunctionDelegate(programs.ToggleCase)(); break;
+                    case 11: new FunctionDelegate(programs.CheckPerfectNumber)(); break;
+                    case 12: new FunctionDelegate(programs.CheckArmstrong)(); break;
+                    case 13: new FunctionDelegate(programs.ReverseNumber)(); break;
+                    case 14: new FunctionDelegate(programs.ConcatStrings)(); break;
+                    case 15: new FunctionDelegate(programs.FindStringLength)(); break;
 
                     case 0:
                         Console.WriteLine("Exiting... Goodbye!");
@@ -90,6 +50,10 @@ namespace Assignment_2
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
+
+                Console.WriteLine("\nPress Enter to continue...");
+                Console.ReadLine();
+
             } while (true);
         }
     }

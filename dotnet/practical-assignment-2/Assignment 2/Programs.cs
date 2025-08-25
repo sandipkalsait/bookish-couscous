@@ -2,11 +2,14 @@
 
 namespace Assignment_2
 {
+    // Declare delegate
+    internal delegate void FunctionDelegate();
+
     internal class Programs
     {
         internal void PrintMenu()
         {
-            Console.WriteLine("------------------ Assignment 2 Menu -------------------");
+            Console.WriteLine("\n------------------ Assignment 2 Menu -------------------");
             Console.WriteLine("Using Functions:");
             Console.WriteLine("1. Check Whether a Given Number is Even or Odd");
             Console.WriteLine("2. Check Whether a Number is Positive or Not");
@@ -97,14 +100,14 @@ namespace Assignment_2
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
-            int reversed = 0, temp = num;
-            while (temp > 0)
+            int original = num, rev = 0;
+            while (num > 0)
             {
-                reversed = reversed * 10 + temp % 10;
-                temp /= 10;
+                rev = rev * 10 + num % 10;
+                num /= 10;
             }
-            Console.WriteLine($"Reversed number: {reversed}");
-            Console.WriteLine(num == reversed ? "It is a Palindrome." : "It is NOT a Palindrome.");
+            Console.WriteLine($"Reversed: {rev}");
+            Console.WriteLine(rev == original ? "Palindrome" : "Not Palindrome");
         }
 
         internal void BasicOperations()
@@ -113,25 +116,29 @@ namespace Assignment_2
             int a = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter second number: ");
             int b = Convert.ToInt32(Console.ReadLine());
+
             Console.WriteLine($"Sum = {a + b}");
-            Console.WriteLine($"Difference = {a - b}");
+            Console.WriteLine($"Subtraction = {a - b}");
             Console.WriteLine($"Multiplication = {a * b}");
-            Console.WriteLine(b != 0 ? $"Division = {(double)a / b}" : "Division not possible (divide by zero).");
+            if (b != 0)
+                Console.WriteLine($"Division = {(double)a / b}");
+            else
+                Console.WriteLine("Division not possible (denominator = 0)");
         }
 
         internal void ReadGrade()
         {
             Console.Write("Enter grade (A/B/C/D/F): ");
-            char grade = Char.ToUpper(Console.ReadKey().KeyChar);
-            Console.WriteLine();
+            char grade = Char.ToUpper(Convert.ToChar(Console.ReadLine()));
+
             switch (grade)
             {
                 case 'A': Console.WriteLine("Excellent"); break;
                 case 'B': Console.WriteLine("Good"); break;
                 case 'C': Console.WriteLine("Average"); break;
-                case 'D': Console.WriteLine("Poor"); break;
+                case 'D': Console.WriteLine("Below Average"); break;
                 case 'F': Console.WriteLine("Fail"); break;
-                default: Console.WriteLine("Invalid grade"); break;
+                default: Console.WriteLine("Invalid Grade"); break;
             }
         }
 
@@ -141,7 +148,10 @@ namespace Assignment_2
             string input = Console.ReadLine();
             char[] chars = input.ToCharArray();
             for (int i = 0; i < chars.Length; i++)
-                chars[i] = Char.IsUpper(chars[i]) ? Char.ToLower(chars[i]) : Char.ToUpper(chars[i]);
+            {
+                if (Char.IsLower(chars[i])) chars[i] = Char.ToUpper(chars[i]);
+                else if (Char.IsUpper(chars[i])) chars[i] = Char.ToLower(chars[i]);
+            }
             Console.WriteLine("Toggled string: " + new string(chars));
         }
 
@@ -152,50 +162,51 @@ namespace Assignment_2
             int sum = 0;
             for (int i = 1; i <= num / 2; i++)
                 if (num % i == 0) sum += i;
-            Console.WriteLine(sum == num ? "It is a Perfect number." : "It is NOT a Perfect number.");
+            Console.WriteLine(sum == num ? "Perfect Number" : "Not Perfect Number");
         }
 
         internal void CheckArmstrong()
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
-            int sum = 0, temp = num, digits = num.ToString().Length;
-            while (temp > 0)
+            int original = num, sum = 0, digits = num.ToString().Length;
+
+            while (num > 0)
             {
-                int d = temp % 10;
+                int d = num % 10;
                 sum += (int)Math.Pow(d, digits);
-                temp /= 10;
+                num /= 10;
             }
-            Console.WriteLine(sum == num ? "It is an Armstrong number." : "It is NOT an Armstrong number.");
+            Console.WriteLine(sum == original ? "Armstrong Number" : "Not Armstrong Number");
         }
 
         internal void ReverseNumber()
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
-            int reversed = 0;
+            int rev = 0;
             while (num > 0)
             {
-                reversed = reversed * 10 + num % 10;
+                rev = rev * 10 + num % 10;
                 num /= 10;
             }
-            Console.WriteLine($"Reversed number is: {reversed}");
+            Console.WriteLine($"Reversed number: {rev}");
         }
 
         internal void ConcatStrings()
         {
             Console.Write("Enter first string: ");
-            string str1 = Console.ReadLine();
+            string s1 = Console.ReadLine();
             Console.Write("Enter second string: ");
-            string str2 = Console.ReadLine();
-            Console.WriteLine("Concatenated String: " + str1 + " " + str2);
+            string s2 = Console.ReadLine();
+            Console.WriteLine("Concatenated: " + s1 + s2);
         }
 
         internal void FindStringLength()
         {
             Console.Write("Enter a string: ");
-            string str = Console.ReadLine();
-            Console.WriteLine("Length of string: " + str.Length);
+            string s = Console.ReadLine();
+            Console.WriteLine("Length: " + s.Length);
         }
     }
 }
