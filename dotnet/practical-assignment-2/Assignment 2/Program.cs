@@ -3,7 +3,7 @@
 namespace Assignment_2
 {
     // Custom delegate
-    internal delegate void FunctionDelegate();
+    //internal delegate void FunctionDelegate();
 
     internal class Program
     {
@@ -12,7 +12,7 @@ namespace Assignment_2
             Programs programs = new Programs();
             int choice;
 
-            do
+            while(true)
             {
                 programs.PrintMenu();
                 Console.Write("Enter your choice : ");
@@ -102,10 +102,11 @@ namespace Assignment_2
                         break;
                 }
 
-                Console.WriteLine("\nPress Enter to continue...");
-                Console.ReadLine();
+                //Console.WriteLine("\nPress Enter to continue...");
+                //Console.ReadLine();
 
-            } while (true);
+            }
+            //while (true);
         }
     }
 }

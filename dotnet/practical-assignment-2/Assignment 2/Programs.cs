@@ -31,6 +31,7 @@ namespace Assignment_2
             Console.WriteLine("--------------------------------------------------------");
         }
 
+        // ===== Console methods =====
         internal void CheckEvenOdd()
         {
             Console.Write("Enter a number: ");
@@ -42,12 +43,9 @@ namespace Assignment_2
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
-            if (num > 0)
-                Console.WriteLine("Number is Positive.");
-            else if (num < 0)
-                Console.WriteLine("Number is Negative.");
-            else
-                Console.WriteLine("Number is Zero.");
+            if (num > 0) Console.WriteLine("Number is Positive.");
+            else if (num < 0) Console.WriteLine("Number is Negative.");
+            else Console.WriteLine("Number is Zero.");
         }
 
         internal void FindLargestOfThree()
@@ -88,11 +86,7 @@ namespace Assignment_2
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
             int sum = 0, temp = num;
-            while (temp > 0)
-            {
-                sum += temp % 10;
-                temp /= 10;
-            }
+            while (temp > 0) { sum += temp % 10; temp /= 10; }
             Console.WriteLine($"Sum of digits of {num} is {sum}");
         }
 
@@ -101,36 +95,62 @@ namespace Assignment_2
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
             int original = num, rev = 0;
-            while (num > 0)
-            {
-                rev = rev * 10 + num % 10;
-                num /= 10;
-            }
+            while (num > 0) { rev = rev * 10 + num % 10; num /= 10; }
             Console.WriteLine($"Reversed: {rev}");
             Console.WriteLine(rev == original ? "Palindrome" : "Not Palindrome");
         }
 
         internal void BasicOperations()
         {
-            Console.Write("Enter first number: ");
-            int a = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Enter second number: ");
-            int b = Convert.ToInt32(Console.ReadLine());
+            int choice;
+            do
+            {
+                Console.WriteLine("\n--- Arithmetic Operations Menu ---");
+                Console.WriteLine("1. Addition");
+                Console.WriteLine("2. Subtraction");
+                Console.WriteLine("3. Multiplication");
+                Console.WriteLine("4. Division");
+                Console.WriteLine("0. Back to Main Menu");
+                Console.Write("Enter your choice: ");
+                choice = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine($"Sum = {a + b}");
-            Console.WriteLine($"Subtraction = {a - b}");
-            Console.WriteLine($"Multiplication = {a * b}");
-            if (b != 0)
-                Console.WriteLine($"Division = {(double)a / b}");
-            else
-                Console.WriteLine("Division not possible (denominator = 0)");
+                if (choice == 0) break;
+
+                Console.Write("Enter first number: ");
+                int a = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("Enter second number: ");
+                int b = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine($"Sum = {a + b}");
+                        break;
+                    case 2:
+                        Console.WriteLine($"Difference = {a - b}");
+                        break;
+                    case 3:
+                        Console.WriteLine($"Multiplication = {a * b}");
+                        break;
+                    case 4:
+                        if (b != 0)
+                            Console.WriteLine($"Division = {(double)a / b}");
+                        else
+                            Console.WriteLine("Division not possible (divide by zero).");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Try again.");
+                        break;
+                }
+
+            } while (choice != 0);
         }
 
         internal void ReadGrade()
         {
             Console.Write("Enter grade (A/B/C/D/F): ");
             char grade = Char.ToUpper(Convert.ToChar(Console.ReadLine()));
-
             switch (grade)
             {
                 case 'A': Console.WriteLine("Excellent"); break;
@@ -155,42 +175,50 @@ namespace Assignment_2
             Console.WriteLine("Toggled string: " + new string(chars));
         }
 
+      
         internal void CheckPerfectNumber()
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(CheckPerfectNumber(num) ? "Perfect Number" : "Not Perfect Number");
+        }
+        internal bool CheckPerfectNumber(int num)
+        {
             int sum = 0;
             for (int i = 1; i <= num / 2; i++)
                 if (num % i == 0) sum += i;
-            Console.WriteLine(sum == num ? "Perfect Number" : "Not Perfect Number");
+            return sum == num;
         }
 
         internal void CheckArmstrong()
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(CheckArmstrong(num) ? "Armstrong Number" : "Not Armstrong Number");
+        }
+        internal bool CheckArmstrong(int num)
+        {
             int original = num, sum = 0, digits = num.ToString().Length;
-
             while (num > 0)
             {
                 int d = num % 10;
                 sum += (int)Math.Pow(d, digits);
                 num /= 10;
             }
-            Console.WriteLine(sum == original ? "Armstrong Number" : "Not Armstrong Number");
+            return sum == original;
         }
 
         internal void ReverseNumber()
         {
             Console.Write("Enter a number: ");
             int num = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Reversed number: {ReverseNumber(num)}");
+        }
+        internal int ReverseNumber(int num)
+        {
             int rev = 0;
-            while (num > 0)
-            {
-                rev = rev * 10 + num % 10;
-                num /= 10;
-            }
-            Console.WriteLine($"Reversed number: {rev}");
+            while (num > 0) { rev = rev * 10 + num % 10; num /= 10; }
+            return rev;
         }
 
         internal void ConcatStrings()
@@ -199,14 +227,16 @@ namespace Assignment_2
             string s1 = Console.ReadLine();
             Console.Write("Enter second string: ");
             string s2 = Console.ReadLine();
-            Console.WriteLine("Concatenated: " + s1 + s2);
+            Console.WriteLine("Concatenated: " + ConcatStrings(s1, s2));
         }
+        internal string ConcatStrings(string s1, string s2) => s1 + s2;
 
         internal void FindStringLength()
         {
             Console.Write("Enter a string: ");
             string s = Console.ReadLine();
-            Console.WriteLine("Length: " + s.Length);
+            Console.WriteLine("Length: " + FindStringLength(s));
         }
+        internal int FindStringLength(string s) => s.Length;
     }
 }

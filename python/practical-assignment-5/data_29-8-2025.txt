@@ -1,0 +1,4 @@
+productId name price quantity
+12 Mobile 19000.0 12
+10 charger 6000.0 80
+102 Laptop 500000.0 80
