@@ -1,0 +1,3 @@
+
+Employees in IT Department:
+EmployeeId: 1001, Name: Rahul Sharma, Salary: 50000
