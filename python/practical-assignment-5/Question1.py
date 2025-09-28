@@ -54,15 +54,25 @@ def write_file(filename, items):
 
 def write_files(products):
     today = datetime.date.today()
-    date_str = str(today.day)+ "-" + str(today.month)+ "-" + str(today.year)
+    date_str = str(today.day)+ "_" + str(today.month)+ "_" + str(today.year)
 
     main_file = "data_" + date_str + ".txt"
     price1_file = "price1.txt"
     price2_file = "price2.txt"
 
-    write_file(main_file, products)
-    write_file(price1_file, {pid: d for pid, d in products.items() if d["price"] >= 5000})
-    write_file(price2_file, {pid: d for pid, d in products.items() if d["price"] >= 10000})
+    # Filter products with price >= 5000 and write to price1_file
+    filtered_products1 = {}
+    for pid, d in products.items():
+        if d["price"] >= 5000:
+            filtered_products1[pid] = d
+    write_file(price1_file, filtered_products1)
+
+    # Filter products with price >= 10000 and write to price2_file
+    filtered_products2 = {}
+    for pid, d in products.items():
+        if d["price"] >= 10000:
+            filtered_products2[pid] = d
+    write_file(price2_file, filtered_products2)
 
     return [main_file, price1_file, price2_file]
 

@@ -1,5 +1,0 @@
-
-Department-wise Employee Count:
-IT: 1 employees
-HR: 1 employees
-Sales: 1 employees

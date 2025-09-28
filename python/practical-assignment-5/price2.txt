@@ -1,3 +1,2 @@
 productId name price quantity
-12 Mobile 19000.0 12
-102 Laptop 500000.0 80
+101 Test 392803.0 10

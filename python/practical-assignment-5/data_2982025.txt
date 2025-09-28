@@ -1,3 +1,0 @@
-productId name price quantity
-22 Mobile 19000.0 10
-932 Laptop 212000.0 99

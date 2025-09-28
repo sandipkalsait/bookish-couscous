@@ -1,5 +1,0 @@
-
-Top Salaries with Employee Details:
-EmployeeId: 1001, Name: Rahul Sharma, Dept: IT, Salary: 50000
-EmployeeId: 1002, Name: Priya Singh, Dept: HR, Salary: 45000
-EmployeeId: 1003, Name: Amit Kumar, Dept: Sales, Salary: 40000
