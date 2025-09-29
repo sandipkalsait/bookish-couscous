@@ -1,4 +1,4 @@
-import EmployeeCRUD
+from other import EmployeeCRUD
 
 employees = EmployeeCRUD.employee_template.copy()
 
