@@ -1,0 +1,49 @@
+------
+   The server generated these startup warnings when booting
+   2025-10-31T19:19:21.540+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+company_db> show collections
+departments
+employees
+company_db> db.employees.find()
+[
+  {
+    _id: ObjectId('6907aa2340ad591b1c62e8e7'),
+    emp_id: '1002',
+    name: 'Sandip Kalsait',
+    dept: 'IT',
+    salary: 900000,
+    email: 'kalsaitsandip91@gmail.com',
+    created_at: ISODate('2025-11-03T00:29:47.722Z'),
+    updated_at: ISODate('2025-11-03T00:29:47.722Z')
+  }
+]
+[ompany_db> db.departments.find()
+  {
+    _id: ObjectId('6907a9fa40ad591b1c62e8e2'),
+    name: 'HR',
+    created_at: ISODate('2025-11-03T00:29:06.149Z')
+  },
+  {
+    _id: ObjectId('6907a9fa40ad591b1c62e8e3'),
+    name: 'IT',
+    created_at: ISODate('2025-11-03T00:29:06.259Z')
+  },
+  {
+    _id: ObjectId('6907a9fa40ad591b1c62e8e4'),
+    name: 'Sales',
+    created_at: ISODate('2025-11-03T00:29:06.262Z')
+  },
+  {
+    _id: ObjectId('6907a9fa40ad591b1c62e8e5'),
+    name: 'Finance',
+    created_at: ISODate('2025-11-03T00:29:06.264Z')
+  },
+  {
+    _id: ObjectId('6907a9fa40ad591b1c62e8e6'),
+    name: 'Marketing',
+    created_at: ISODate('2025-11-03T00:29:06.265Z')
+  }
+]
+company_db>
