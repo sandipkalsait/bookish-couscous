@@ -1,0 +1,4 @@
+HI sandip
+I am from test.txt
+welcome to file handling code in 
+c language
