@@ -14,64 +14,43 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Progress Bar -->
-        <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:visibility="gone"/>
-
-        <!-- Name -->
+        <!-- First Name -->
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Name"/>
+            android:autofillHints=""
+            android:hint="@string/enter_first_name" />
+
+        <!-- Last Name -->
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_last_name" />
+
+        <!-- Mobile Number -->
+        <EditText
+            android:id="@+id/etMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_mobile_number"
+            android:inputType="phone" />
 
         <!-- Email -->
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Email"
-            android:inputType="textEmailAddress"/>
-
-        <!-- Mobile -->
-        <EditText
-            android:id="@+id/etMobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Mobile"
-            android:inputType="phone"/>
-
-        <!-- Password -->
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Password"
-            android:inputType="textPassword"/>
-
-        <!-- Age -->
-        <EditText
-            android:id="@+id/etAge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Age"
-            android:inputType="number"/>
+            android:hint="@string/enter_email_id"
+            android:inputType="textEmailAddress" />
 
         <!-- Submit Button -->
         <Button
-            android:id="@+id/btnRegister"
+            android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"/>
-
-        <!-- Records List -->
-        <ExpandableListView
-            android:id="@+id/records"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"/>
+            android:text="@string/submit" />
 
     </LinearLayout>
 <!--    <TextView-->

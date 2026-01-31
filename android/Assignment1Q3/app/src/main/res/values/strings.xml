@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Assignment1Q3</string>
+    <string name="submit">Submit</string>
+    <string name="enter_email_id">Enter Email ID</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_first_name">Enter First Name</string>
 </resources>
