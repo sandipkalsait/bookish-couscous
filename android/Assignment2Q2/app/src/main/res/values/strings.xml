@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Assignment2Q2</string>
+    <string name="main_activity">Main Activity</string>
+    <string name="go_next_activity">Go Next Activity</string>
+    <string name="my_activity">My Activity</string>
+    <string name="go_to_main_activity">Go to Main Activity</string>
+</resources>
